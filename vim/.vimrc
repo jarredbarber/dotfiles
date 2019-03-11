@@ -45,4 +45,7 @@ set ai
 set si
 set wrap
 
+call plug#begin('~/.vim/plugged')
+Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
+call plug#end()
 
