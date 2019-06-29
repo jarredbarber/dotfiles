@@ -52,6 +52,7 @@ Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 " Plug 'arcticicestudio/nord-vim'
 " Plug 'junegunn/seoul256.vim'
 Plug 'JuliaEditorSupport/julia-vim'
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 
