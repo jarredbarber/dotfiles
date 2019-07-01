@@ -45,11 +45,14 @@ set ai
 set si
 set wrap
 
+command W :w " I always hit shift on the 'w' in ':w'
+
 call plug#begin('~/.vim/plugged')
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 " Plug 'arcticicestudio/nord-vim'
 " Plug 'junegunn/seoul256.vim'
 Plug 'JuliaEditorSupport/julia-vim'
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 
@@ -58,6 +61,7 @@ call plug#end()
 
 " For 
 "set t_Co=256
+" set t_Co=256
 "set termguicolors
 set background=dark   "or use the light theme: set background=light
 colorscheme kuroi
