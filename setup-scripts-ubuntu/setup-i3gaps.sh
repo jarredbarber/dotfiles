@@ -10,8 +10,8 @@ git checkout gaps-next
 echo Building i3-gaps
 autoreconf -fi
 mkdir -p build && cd build
-../configure --prefix=/usr --sysconfdir=/etc
-make -j4 
+../configure --disable-address-sanitizer --disable-debug --prefix=/usr --sysconfdir=/etc --disable-maintainer-mode --disable-sanitizers --disable-memory-sanitizer --without-gcov
+make -j8
 echo Installing i3-gaps
 sudo make install
 echo Installing i3-gnome
@@ -20,7 +20,7 @@ cd i3-gnome
 sudo make install
 cd $D
 echo "Setting up dotfiles"
-stow i3
+stow ../i3
 echo "Cleaning up"
 rm -rf /tmp/i3gaps
 
