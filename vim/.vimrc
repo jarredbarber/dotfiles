@@ -45,7 +45,7 @@ set ai
 set si
 set wrap
 
-command W :w " I always hit shift on the 'w' in ':w'
+command! W :w " I always hit shift on the 'w' in ':w'
 
 call plug#begin('~/.vim/plugged')
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
@@ -53,6 +53,7 @@ Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 " Plug 'junegunn/seoul256.vim'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'rust-lang/rust.vim'
+Plug 'tpope/vim-vinegar'
 call plug#end()
 
 
