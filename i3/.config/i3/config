@@ -9,6 +9,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+
 set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -50,7 +51,7 @@ bar {
   separator_symbol "  |  "
   status_command i3status #py3status --dbus-notify
   position top
-  tray_output none
+  tray_output primary 
 }
 
 
@@ -211,3 +212,7 @@ bindsym $mod+r mode "resize"
 gaps inner 5
 gaps outer 5
 smart_gaps on
+
+
+exec --no-startup-id nitrogen --set-zoom-fill $HOME/bg/current
+exec --no-startup-id compton --opacity-rule '30:window_type = "dock" && class_g = "i3bar"' --opacity-rule '95:class_g="nvim-qt"' -b 
