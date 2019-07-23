@@ -221,4 +221,4 @@ smart_gaps on
 
 
 exec --no-startup-id nitrogen --set-zoom-fill $HOME/bg/current
-exec --no-startup-id compton --opacity-rule '30:window_type = "dock" && class_g = "i3bar"' --opacity-rule '95:class_g="nvim-qt"' -b 
+exec --no-startup-id compton --opacity-rule '30:window_type = "dock" && class_g = "i3bar"' --opacity-rule '90:class_g="nvim-qt"' -b 
