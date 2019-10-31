@@ -48,12 +48,13 @@ This function should only modify configuration layer settings."
      rust
      haskell
      latex
+     markdown
      ;; other stuff
      helm
-     ;; markdown
      multiple-cursors
-     org
-     ;; jupyter
+     (org :variables org-enable-org-journal-support t
+                     org-enable-trello-support t
+                     org-enable-github-support t)
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -474,6 +475,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (setq org-directory "~/notebook")
+  (setq org-journal-dir "~/notebook/journal")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
