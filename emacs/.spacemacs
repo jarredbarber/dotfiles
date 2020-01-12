@@ -39,27 +39,27 @@ This function should only modify configuration layer settings."
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
-     better-defaults
+     themes-megapack
+     ;; better-defaults
      git
      ;; languages
      emacs-lisp
-     python
-     julia
-     rust
      haskell
+     html
+     julia
      latex
      markdown
+     python
+     rust
      ;; other stuff
-     helm
+     ;; helm
      multiple-cursors
-     (org :variables org-enable-org-journal-support t
-                     org-enable-trello-support t
-                     org-enable-github-support t)
+     org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     syntax-checking
+     ;; syntax-checking
      treemacs
      ;; version-control
      )
@@ -196,7 +196,8 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(misterioso
+   dotspacemacs-themes '(darktooth
+                         misterioso
                          whiteboard)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
@@ -206,7 +207,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme 'vim-powerline ;; '(spacemacs :separator wave :separator-scale 1.5)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)

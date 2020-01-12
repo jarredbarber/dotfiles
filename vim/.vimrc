@@ -47,11 +47,11 @@ call plug#end()
 set background=dark   "or use the light theme: set background=light
 colorscheme kuroi
 
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = 25
+" let g:netrw_banner = 0
+" let g:netrw_liststyle = 3
+" let g:netrw_browse_split = 4
+" let g:netrw_altv = 1
+" let g:netrw_winsize = 25
 " augroup ProjectDrawer
 " 	autocmd!
 " 	autocmd VimEnter * :Vexplore
