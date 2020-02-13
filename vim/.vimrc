@@ -45,6 +45,8 @@ Plug 'tpope/vim-commentary'
 Plug 'SirVer/ultisnips'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
+Plug 'vim-airline/vim-airline'
+Plug 'ap/vim-buftabline'
 call plug#end()
 let g:deoplete#enable_at_startup=1
 
@@ -57,8 +59,8 @@ colorscheme kuroi
 
 nnoremap <leader>rc :e ~/.vimrc<cr>
 nnoremap <leader>src :source ~/.vimrc<cr>
-nnoremap <leader>bn :bn<cr>
-nnoremap <leader>bp :bp<cr>
+nnoremap <leader>n :bn<cr>
+nnoremap <leader>p :bp<cr>
 
 command! W :w " I always hit shift on the 'w' in ':w'
 command! L2U :call LaTeXtoUnicode#Toggle()
