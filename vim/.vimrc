@@ -46,9 +46,11 @@ Plug 'SirVer/ultisnips'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
 Plug 'vim-airline/vim-airline'
-Plug 'ap/vim-buftabline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'ap/vim-buftabline'
 call plug#end()
 let g:deoplete#enable_at_startup=1
+let g:airline#extensions#tabline#enabled=1
 
 
 let mapleader=" "
@@ -59,8 +61,19 @@ colorscheme kuroi
 
 nnoremap <leader>rc :e ~/.vimrc<cr>
 nnoremap <leader>src :source ~/.vimrc<cr>
+" Define some leader commands for switching buffers
 nnoremap <leader>n :bn<cr>
 nnoremap <leader>p :bp<cr>
+nnoremap <leader>1 :buf 1<cr>
+nnoremap <leader>2 :buf 2<cr>
+nnoremap <leader>3 :buf 3<cr>
+nnoremap <leader>4 :buf 4<cr>
+nnoremap <leader>5 :buf 5<cr>
+nnoremap <leader>6 :buf 6<cr>
+nnoremap <leader>7 :buf 7<cr>
+nnoremap <leader>8 :buf 8<cr>
+nnoremap <leader>9 :buf 9<cr>
+nnoremap <leader>10 :buf 10<cr>
 
 command! W :w " I always hit shift on the 'w' in ':w'
 command! L2U :call LaTeXtoUnicode#Toggle()
@@ -79,4 +92,4 @@ augroup filetypedetect
     au! BufNewFile,BufRead /home/jarred/notebook/zettel/*.md set suffixesadd=.md
 augroup END
 map <silent> <leader>zet :FZF ~/notebook/zettel<cr>
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>\<cr>" : "\<TAB>"
