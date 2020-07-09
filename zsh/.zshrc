@@ -100,3 +100,5 @@ export PROMPT='%(!.%{%F{yellow}%}.)$USER@%{$fg[white]%}%M %{$fg_bold[red]%}➜ %
 for f in $HOME/.zsh_local/*; do 
     source $f
 done
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -45,8 +45,8 @@ Plug 'tpope/vim-commentary'
 Plug 'SirVer/ultisnips'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 " Plug 'ap/vim-buftabline'
 call plug#end()
 let g:deoplete#enable_at_startup=1
@@ -75,16 +75,14 @@ nnoremap <leader>8 :buf 8<cr>
 nnoremap <leader>9 :buf 9<cr>
 nnoremap <leader>10 :buf 10<cr>
 
+nnoremap <leader>md :set filetype=markdown<cr>
+
 command! W :w " I always hit shift on the 'w' in ':w'
 command! L2U :call LaTeXtoUnicode#Toggle()
 nnoremap <leader>latex :call LaTeXtoUnicode#Toggle()<cr>
 
 " Run the q macro
 nnoremap Q @q 
-
-" Configure vim-slime
-let g:slime_target = "tmux"
-nmap <silent> <c-c><c-j> [[V][ <Plug>SlimeRegionSend
 
 " Configure stuff related to Zettel
 augroup filetypedetect
@@ -93,3 +91,23 @@ augroup filetypedetect
 augroup END
 map <silent> <leader>zet :FZF ~/notebook/zettel<cr>
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>\<cr>" : "\<TAB>"
+
+" TODO tracker
+augroup todo_md
+    au!
+    let g:todo_md#file = "~/org/todo.md"
+    let g:todo_md#script = "~/Library/Application\\ Support/Übersicht/widgets/minimalist-todo.widget/todo.coffee"
+    execute "au BufWrite " . g:todo_md#file . " silent !touch " . g:todo_md#script . ""
+    execute "nnoremap <leader>todo :e " . g:todo_md#file . "<cr>"
+    execute "au BufRead " . g:todo_md#file . " nnoremap <leader>c :call ToggleCheck()<cr>"
+augroup END
+
+function! ToggleCheck()
+    let l:line = getline(line('.')) 
+    if match(l:line, '^\s*-') + 1
+        execute "normal! ^xix" 
+    endif
+    if match(l:line, '^\s*x') + 1
+        execute "normal! ^xi-" 
+    endif
+endfunction
