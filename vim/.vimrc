@@ -2,7 +2,7 @@ filetype plugin on
 filetype indent on
 
 set number
-set relativenumber
+" set relativenumber
 set autoread
 set wildmenu
 set ruler
@@ -31,12 +31,21 @@ set si
 set wrap
 
 call plug#begin('~/.vim/plugged')
+" Colorschemes
 Plug 'morhetz/gruvbox'
+Plug 'doums/darcula'
+
 " Tim Pope, plugin wizard
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+
+" Stuff I'm checking out
+Plug 'svermeulen/vim-cutlass'
+" Plug 'svermeulen/vim-yoink'
+Plug 'easymotion/vim-easymotion'
+" Plug 'justinmk/vim-sneak'
 
 " Programming language stuff
 Plug 'preservim/nerdtree'
@@ -107,7 +116,7 @@ augroup todo_md
     let g:todo_md#script = "~/Library/Application\\ Support/Übersicht/widgets/minimalist-todo.widget/todo.coffee"
     execute "au BufWrite " . g:todo_md#file . " silent !touch " . g:todo_md#script . ""
     execute "nnoremap <leader>todo :e " . g:todo_md#file . "<cr>"
-    execute "au BufRead " . g:todo_md#file . " nnoremap <leader><leader> :call ToggleCheck()<cr>"
+    execute "au BufRead " . g:todo_md#file . " nnoremap <localleader><localleader> :call ToggleCheck()<cr>"
 augroup END
 
 function! ToggleCheck()
@@ -119,4 +128,12 @@ function! ToggleCheck()
         execute "normal! ^xi-" 
     endif
 endfunction
+
+function! InlineCommand(cmd)
+    " let l:cmd = input('Command: ')
+    let l:output = system(a:cmd)
+    let l:output = substitute(l:output, '[\r\n]*$', '', '')
+    execute 'normal a ' . l:output
+endfunction
+
 
