@@ -34,6 +34,8 @@ call plug#begin('~/.vim/plugged')
 " Colorschemes
 Plug 'morhetz/gruvbox'
 Plug 'doums/darcula'
+Plug 'tlhr/anderson.vim'
+Plug 'sheerun/vim-wombat-scheme'
 
 " Tim Pope, plugin wizard
 Plug 'tpope/vim-sensible'
@@ -42,10 +44,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 
 " Stuff I'm checking out
-Plug 'svermeulen/vim-cutlass'
-" Plug 'svermeulen/vim-yoink'
 Plug 'easymotion/vim-easymotion'
-" Plug 'justinmk/vim-sneak'
 
 " Programming language stuff
 Plug 'preservim/nerdtree'
@@ -56,7 +55,7 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'lighttiger2505/deoplete-vim-lsp'
 
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
-" Plug 'JuliaEditorSupport/julia-vim'
+Plug 'JuliaEditorSupport/julia-vim'
 " Plug 'rust-lang/rust.vim'
 " Plug 'vim-pandoc/vim-pandoc-syntax'
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
@@ -129,6 +128,7 @@ function! ToggleCheck()
     endif
 endfunction
 
+" Run a shell command, strip newlines from output, and insert inline
 function! InlineCommand(cmd)
     " let l:cmd = input('Command: ')
     let l:output = system(a:cmd)
@@ -136,4 +136,9 @@ function! InlineCommand(cmd)
     execute 'normal a ' . l:output
 endfunction
 
+augroup work_journal
+    au!
+    " Create a new journal entry at the top. 
+    au BufRead ~/org/journal.md nnoremap <buffer> <leader>z ggO#<esc>:call InlineCommand("date '+<\%Y-\%m-\%d>'")<cr>i<cr>
+augroup end
 
