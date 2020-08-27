@@ -2,7 +2,7 @@ filetype plugin on
 filetype indent on
 
 set number
-" set relativenumber
+set relativenumber
 set autoread
 set wildmenu
 set ruler
@@ -48,6 +48,7 @@ Plug 'easymotion/vim-easymotion'
 
 " Programming language stuff
 Plug 'preservim/nerdtree'
+" Plug 'ambv/black'
 Plug 'ryanoasis/vim-devicons'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'prabirshrestha/vim-lsp'
