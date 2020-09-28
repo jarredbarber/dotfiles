@@ -53,7 +53,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-Plug 'lighttiger2505/deoplete-vim-lsp'
+" Plug 'lighttiger2505/deoplete-vim-lsp'
+Plug 'nvim-lua/completion-nvim'
 
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 Plug 'JuliaEditorSupport/julia-vim'
@@ -63,8 +64,8 @@ Plug 'JuliaEditorSupport/julia-vim'
 " Plug 'jpalardy/vim-slime'
 
 " Utilities
-Plug 'SirVer/ultisnips'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'SirVer/ultisnips'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
 call plug#end()
 let g:deoplete#enable_at_startup=1
