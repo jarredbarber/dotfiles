@@ -51,10 +51,18 @@ Plug 'preservim/nerdtree'
 " Plug 'ambv/black'
 Plug 'ryanoasis/vim-devicons'
 Plug 'ctrlpvim/ctrlp.vim'
+
+" LSP stuff
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
 " Plug 'lighttiger2505/deoplete-vim-lsp'
-Plug 'nvim-lua/completion-nvim'
+
+" Built-in LSP
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'nvim-lua/completion-nvim'
 
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 Plug 'JuliaEditorSupport/julia-vim'
@@ -108,7 +116,7 @@ augroup filetypedetect
     au! BufNewFile,BufRead /home/jarred/notebook/zettel/*.md set suffixesadd=.md
 augroup END
 map <silent> <leader>zet :FZF ~/notebook/zettel<cr>
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>\<cr>" : "\<TAB>"
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>\<cr>" : "\<TAB>"
 
 " TODO tracker
 augroup todo_md
@@ -143,4 +151,11 @@ augroup work_journal
     " Create a new journal entry at the top. 
     au BufRead ~/org/journal.md nnoremap <buffer> <leader>z ggO#<esc>:call InlineCommand("date '+<\%Y-\%m-\%d>'")<cr>i<cr>
 augroup end
+
+" Autocomplete with LSP
+" lua require'nvim_lsp'.jedi.setup{on_attach=require'completion'.on_attach}
+"autocmd BufEnter * lua require'completion'.on_attach()
+
+nnoremap <leader>h :LspHover<cr>
+
 
