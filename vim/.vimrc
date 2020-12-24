@@ -66,14 +66,8 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 Plug 'JuliaEditorSupport/julia-vim'
-" Plug 'rust-lang/rust.vim'
-" Plug 'vim-pandoc/vim-pandoc-syntax'
-" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-" Plug 'jpalardy/vim-slime'
 
 " Utilities
-" Plug 'SirVer/ultisnips'
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
 call plug#end()
 let g:deoplete#enable_at_startup=1
@@ -104,7 +98,6 @@ nnoremap <leader>10 :buf 10<cr>
 nnoremap <leader>md :set filetype=markdown<cr>
 
 command! W :w " I always hit shift on the 'w' in ':w'
-command! L2U :call LaTeXtoUnicode#Toggle()
 nnoremap <leader>latex :call LaTeXtoUnicode#Toggle()<cr>
 
 " Run the q macro
@@ -138,24 +131,19 @@ function! ToggleCheck()
     endif
 endfunction
 
-" Run a shell command, strip newlines from output, and insert inline
-function! InlineCommand(cmd)
-    " let l:cmd = input('Command: ')
-    let l:output = system(a:cmd)
-    let l:output = substitute(l:output, '[\r\n]*$', '', '')
-    execute 'normal a ' . l:output
-endfunction
-
 augroup work_journal
     au!
     " Create a new journal entry at the top. 
-    au BufRead ~/org/journal.md nnoremap <buffer> <leader>z ggO#<esc>:call InlineCommand("date '+<\%Y-\%m-\%d>'")<cr>i<cr>
+    " au BufRead ~/org/journal.md nnoremap <buffer> <leader>z ggO#<esc>:call InlineCommand("date '+<\%Y-\%m-\%d>'")<cr>i<cr>
+    au BufRead ~/org/journal.md nnoremap <buffer> <leader>z ggO#<esc>:r !date '+<\%Y-\%m-\%d>'<cr>i<cr>
 augroup end
 
-" Autocomplete with LSP
-" lua require'nvim_lsp'.jedi.setup{on_attach=require'completion'.on_attach}
-"autocmd BufEnter * lua require'completion'.on_attach()
+nnoremap <leader>jour :e ~/org/journal.md<cr>
 
-nnoremap <leader>h :LspHover<cr>
+nnoremap <localleader>h :LspHover<cr>
+nnoremap <localleader>d :LspDefinition<cr>
+nnoremap <localleader>r :LspRename<cr>
 
-
+" NERD Tree
+let NERDTreeQuitOnOpen=1
+nnoremap <leader>t :NERDTreeToggle<cr>
