@@ -53,16 +53,19 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'ctrlpvim/ctrlp.vim'
 
 " LSP stuff
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'mattn/vim-lsp-settings'
+" Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " Plug 'lighttiger2505/deoplete-vim-lsp'
 
 " Built-in LSP
 " Plug 'neovim/nvim-lspconfig'
 " Plug 'nvim-lua/completion-nvim'
+
+" Coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 Plug 'JuliaEditorSupport/julia-vim'
@@ -140,9 +143,17 @@ augroup end
 
 nnoremap <leader>jour :e ~/org/journal.md<cr>
 
-nnoremap <localleader>h :LspHover<cr>
-nnoremap <localleader>d :LspDefinition<cr>
-nnoremap <localleader>r :LspRename<cr>
+" For vim-lsp
+" nnoremap <localleader>h :LspHover<cr>
+" nnoremap <localleader>d :LspDefinition<cr>
+" nnoremap <localleader>r :LspRename<cr>
+
+nmap <localleader>h :call CocAction('doHover')<cr>
+nmap <localleader>d <Plug>(coc-definition)
+nmap <localleader>r <Plug>(coc-rename)
+nmap <localleader>f <Plug>(coc-format-selected)
+nmap <localleader>R <Plug>(coc-references-used)
+nmap <localleader>ref <Plug>(coc-refactor)
 
 " NERD Tree
 let NERDTreeQuitOnOpen=1
