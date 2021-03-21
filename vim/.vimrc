@@ -52,22 +52,9 @@ Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'ctrlpvim/ctrlp.vim'
 
-" LSP stuff
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'mattn/vim-lsp-settings'
-" Plug 'prabirshrestha/asyncomplete.vim'
-" Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
-" Plug 'lighttiger2505/deoplete-vim-lsp'
-
-" Built-in LSP
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'nvim-lua/completion-nvim'
-
 " Coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 Plug 'JuliaEditorSupport/julia-vim'
 
 " Utilities
@@ -106,14 +93,6 @@ nnoremap <leader>latex :call LaTeXtoUnicode#Toggle()<cr>
 " Run the q macro
 nnoremap Q @q 
 
-" Configure stuff related to Zettel
-augroup filetypedetect
-    au! BufNewFile,BufRead /home/jarred/notebook/zettel/*.md setf privwiki.markdown
-    au! BufNewFile,BufRead /home/jarred/notebook/zettel/*.md set suffixesadd=.md
-augroup END
-map <silent> <leader>zet :FZF ~/notebook/zettel<cr>
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>\<cr>" : "\<TAB>"
-
 " TODO tracker
 augroup todo_md
     au!
@@ -142,11 +121,6 @@ augroup work_journal
 augroup end
 
 nnoremap <leader>jour :e ~/org/journal.md<cr>
-
-" For vim-lsp
-" nnoremap <localleader>h :LspHover<cr>
-" nnoremap <localleader>d :LspDefinition<cr>
-" nnoremap <localleader>r :LspRename<cr>
 
 nmap <localleader>h :call CocAction('doHover')<cr>
 nmap <localleader>d <Plug>(coc-definition)
