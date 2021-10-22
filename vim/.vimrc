@@ -30,12 +30,18 @@ set ai
 set si
 set wrap
 
+" milliseconds
+set timeoutlen=50
+
+set mouse=a
+
 call plug#begin('~/.vim/plugged')
 " Colorschemes
+Plug 'cocopon/iceberg.vim'
+Plug 'mrjones2014/lighthaus.nvim'
 Plug 'morhetz/gruvbox'
 Plug 'doums/darcula'
 Plug 'tlhr/anderson.vim'
-Plug 'sheerun/vim-wombat-scheme'
 
 " Tim Pope, plugin wizard
 Plug 'tpope/vim-sensible'
@@ -46,11 +52,20 @@ Plug 'tpope/vim-commentary'
 " Stuff I'm checking out
 Plug 'easymotion/vim-easymotion'
 
-" Programming language stuff
-Plug 'preservim/nerdtree'
-" Plug 'ambv/black'
+Plug 'hoob3rt/lualine.nvim'
+" If you want to have icons in your statusline choose one of these
+" Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
-Plug 'ctrlpvim/ctrlp.vim'
+
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'folke/which-key.nvim'
+
+Plug 'ryanoasis/vim-devicons'
 
 " Coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -58,69 +73,34 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'JuliaEditorSupport/julia-vim'
 
 " Utilities
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
 call plug#end()
-let g:deoplete#enable_at_startup=1
+
+" Run lua plugins
+lua << END
+require('lualine').setup{options={theme='horizon'}}
+require'nvim-tree'.setup() 
+require('telescope').setup()
+require("which-key").setup()
+END
 
 let mapleader=" "
 let maplocalleader=","
 
 set background=dark   "or use the light theme: set background=light
-" colorscheme kuroi
-colorscheme gruvbox
+colorscheme lighthaus
 
 nnoremap <leader>rc :e ~/.vimrc<cr>
 nnoremap <leader>src :source ~/.vimrc<cr>
 " Define some leader commands for switching buffers
 nnoremap <leader>n :bn<cr>
 nnoremap <leader>p :bp<cr>
-nnoremap <leader>1 :buf 1<cr>
-nnoremap <leader>2 :buf 2<cr>
-nnoremap <leader>3 :buf 3<cr>
-nnoremap <leader>4 :buf 4<cr>
-nnoremap <leader>5 :buf 5<cr>
-nnoremap <leader>6 :buf 6<cr>
-nnoremap <leader>7 :buf 7<cr>
-nnoremap <leader>8 :buf 8<cr>
-nnoremap <leader>9 :buf 9<cr>
-nnoremap <leader>10 :buf 10<cr>
-
-nnoremap <leader>md :set filetype=markdown<cr>
 
 command! W :w " I always hit shift on the 'w' in ':w'
-nnoremap <leader>latex :call LaTeXtoUnicode#Toggle()<cr>
+command! Latex :call LaTeXtoUnicode#Toggle()<cr>
 
 " Run the q macro
 nnoremap Q @q 
-
-" TODO tracker
-augroup todo_md
-    au!
-    let g:todo_md#file = "~/org/todo.md"
-    let g:todo_md#script = "~/Library/Application\\ Support/Übersicht/widgets/minimalist-todo.widget/todo.coffee"
-    execute "au BufWrite " . g:todo_md#file . " silent !touch " . g:todo_md#script . ""
-    execute "nnoremap <leader>todo :e " . g:todo_md#file . "<cr>"
-    execute "au BufRead " . g:todo_md#file . " nnoremap <localleader><localleader> :call ToggleCheck()<cr>"
-augroup END
-
-function! ToggleCheck()
-    let l:line = getline(line('.')) 
-    if match(l:line, '^\s*-') + 1
-        execute "normal! ^xix" 
-    endif
-    if match(l:line, '^\s*x') + 1
-        execute "normal! ^xi-" 
-    endif
-endfunction
-
-augroup work_journal
-    au!
-    " Create a new journal entry at the top. 
-    " au BufRead ~/org/journal.md nnoremap <buffer> <leader>z ggO#<esc>:call InlineCommand("date '+<\%Y-\%m-\%d>'")<cr>i<cr>
-    au BufRead ~/org/journal.md nnoremap <buffer> <leader>z ggO#<esc>:r !date '+<\%Y-\%m-\%d>'<cr>i<cr>
-augroup end
-
-nnoremap <leader>jour :e ~/org/journal.md<cr>
 
 nmap <localleader>h :call CocAction('doHover')<cr>
 nmap <localleader>d <Plug>(coc-definition)
@@ -129,6 +109,33 @@ nmap <localleader>f <Plug>(coc-format-selected)
 nmap <localleader>R <Plug>(coc-references-used)
 nmap <localleader>ref <Plug>(coc-refactor)
 
+" Telescope
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
 " NERD Tree
-let NERDTreeQuitOnOpen=1
-nnoremap <leader>t :NERDTreeToggle<cr>
+" let NERDTreeQuitOnOpen=1
+nnoremap <leader>e :NvimTreeToggle<cr>
+nnoremap <leader>t :NvimTreeFindFile<cr>
+
+set termguicolors
+
+
+" au FileType python call SetWorkspaceFolders()
+
+" function! SetWorkspaceFolders() abort
+"     " Only set g:WorkspaceFolders if it is not already set
+"     if exists("g:WorkspaceFolders") | return | endif
+
+"     if executable("findup")
+"         let l:ws_dir = system("cd '" . expand("%:h") . "' && findup packageInfo")
+"         " Bemol conveniently generates a '$WS_DIR/.bemol/ws_root_folders' file, so let's leverage it
+"         let l:folders_file = l:ws_dir . "/.bemol/ws_root_folders"
+"         if filereadable(l:folders_file)
+"             let l:ws_folders = readfile(l:folders_file)
+"             let g:WorkspaceFolders = filter(l:ws_folders, "isdirectory(v:val)")
+"         endif
+"     endif
+" endfunction
