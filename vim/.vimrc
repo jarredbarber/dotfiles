@@ -68,7 +68,10 @@ Plug 'folke/which-key.nvim'
 Plug 'ryanoasis/vim-devicons'
 
 " Coc
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'nvim-lua/completion-nvim'
 
 Plug 'JuliaEditorSupport/julia-vim'
 
@@ -82,6 +85,36 @@ require('lualine').setup{options={theme='horizon'}}
 require'nvim-tree'.setup() 
 require('telescope').setup()
 require("which-key").setup()
+
+local map = function(key, value)
+	vim.api.nvim_buf_set_keymap(0,'n',key,value,{noremap = true, silent = true});
+end
+
+local custom_attach = function(client)
+	print("LSP started.");
+	-- require'completion'.on_attach(client)
+	-- require'diagnostic'.on_attach(client)
+
+	-- map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
+	map('<localleader>d','<cmd>lua vim.lsp.buf.definition()<CR>')
+	map('<localleader>h','<cmd>lua vim.lsp.buf.hover()<CR>')
+	--map('n','gr','<cmd>lua vim.lsp.buf.references()<CR>')
+	-- map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
+	-- map('n','gi','<cmd>lua vim.lsp.buf.implementation()<CR>')
+	-- map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
+	-- map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+	-- map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+	-- map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
+	-- map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
+	-- map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+	-- map('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
+	map('<localleader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+	-- map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
+	-- map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
+end
+
+require'lspconfig'.pyright.setup{}
+require'lspconfig'.rust_analyzer.setup{}
 END
 
 let mapleader=" "
@@ -90,8 +123,8 @@ let maplocalleader=","
 set background=dark   "or use the light theme: set background=light
 colorscheme lighthaus
 
-nnoremap <leader>rc :e ~/.vimrc<cr>
-nnoremap <leader>src :source ~/.vimrc<cr>
+nnoremap <leader>c :e ~/.vimrc<cr>
+" nnoremap <leader>src :source ~/.vimrc<cr>
 " Define some leader commands for switching buffers
 nnoremap <leader>n :bn<cr>
 nnoremap <leader>p :bp<cr>
@@ -102,12 +135,14 @@ command! Latex :call LaTeXtoUnicode#Toggle()<cr>
 " Run the q macro
 nnoremap Q @q 
 
-nmap <localleader>h :call CocAction('doHover')<cr>
-nmap <localleader>d <Plug>(coc-definition)
-nmap <localleader>r <Plug>(coc-rename)
-nmap <localleader>f <Plug>(coc-format-selected)
-nmap <localleader>R <Plug>(coc-references-used)
-nmap <localleader>ref <Plug>(coc-refactor)
+" nmap <localleader>h :call CocAction('doHover')<cr>
+" nmap <localleader>d <Plug>(coc-definition)
+" nmap <localleader>r <Plug>(coc-rename)
+" nmap <localleader>f <Plug>(coc-format-selected)
+" nmap <localleader>R <Plug>(coc-references-used)
+" nmap <localleader>ref <Plug>(coc-refactor)
+nmap <localleader>h <cmd>lua vim.lsp.buf.hover()<cr>
+nmap <localleader>d <cmd>lua vim.lsp.buf.definition()<cr>
 
 " Telescope
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
@@ -123,19 +158,3 @@ nnoremap <leader>t :NvimTreeFindFile<cr>
 set termguicolors
 
 
-" au FileType python call SetWorkspaceFolders()
-
-" function! SetWorkspaceFolders() abort
-"     " Only set g:WorkspaceFolders if it is not already set
-"     if exists("g:WorkspaceFolders") | return | endif
-
-"     if executable("findup")
-"         let l:ws_dir = system("cd '" . expand("%:h") . "' && findup packageInfo")
-"         " Bemol conveniently generates a '$WS_DIR/.bemol/ws_root_folders' file, so let's leverage it
-"         let l:folders_file = l:ws_dir . "/.bemol/ws_root_folders"
-"         if filereadable(l:folders_file)
-"             let l:ws_folders = readfile(l:folders_file)
-"             let g:WorkspaceFolders = filter(l:ws_folders, "isdirectory(v:val)")
-"         endif
-"     endif
-" endfunction
