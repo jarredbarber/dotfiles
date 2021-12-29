@@ -72,6 +72,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'nvim-lua/completion-nvim'
+Plug 'matbme/JABS.nvim'
+" Plug 'ms-jpq/coq_nvim' " in python :(
 
 Plug 'JuliaEditorSupport/julia-vim'
 
@@ -85,6 +87,7 @@ require('lualine').setup{options={theme='horizon'}}
 require'nvim-tree'.setup() 
 require('telescope').setup()
 require("which-key").setup()
+require("jabs").setup{position='center', width=100}
 
 local map = function(key, value)
 	vim.api.nvim_buf_set_keymap(0,'n',key,value,{noremap = true, silent = true});
@@ -92,12 +95,12 @@ end
 
 local custom_attach = function(client)
 	print("LSP started.");
-	-- require'completion'.on_attach(client)
+	require'completion'.on_attach(client)
 	-- require'diagnostic'.on_attach(client)
 
 	-- map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
-	map('<localleader>d','<cmd>lua vim.lsp.buf.definition()<CR>')
-	map('<localleader>h','<cmd>lua vim.lsp.buf.hover()<CR>')
+	--map('<localleader>d','<cmd>lua vim.lsp.buf.definition()<CR>')
+	--map('<localleader>h','<cmd>lua vim.lsp.buf.hover()<CR>')
 	--map('n','gr','<cmd>lua vim.lsp.buf.references()<CR>')
 	-- map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
 	-- map('n','gi','<cmd>lua vim.lsp.buf.implementation()<CR>')
@@ -108,12 +111,12 @@ local custom_attach = function(client)
 	-- map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
 	-- map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
 	-- map('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
-	map('<localleader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+	-- map('<localleader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 	-- map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
 	-- map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
 end
 
-require'lspconfig'.pyright.setup{}
+require'lspconfig'.pyright.setup{on_attach=custom_attach}
 require'lspconfig'.rust_analyzer.setup{}
 END
 
@@ -123,7 +126,19 @@ let maplocalleader=","
 set background=dark   "or use the light theme: set background=light
 colorscheme lighthaus
 
-nnoremap <leader>c :e ~/.vimrc<cr>
+" Some completion stuff
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+nnoremap <leader>ce :e ~/.vimrc<cr>
+nnoremap <leader>cs :source ~/.vimrc<cr>
 " nnoremap <leader>src :source ~/.vimrc<cr>
 " Define some leader commands for switching buffers
 nnoremap <leader>n :bn<cr>
@@ -143,6 +158,11 @@ nnoremap Q @q
 " nmap <localleader>ref <Plug>(coc-refactor)
 nmap <localleader>h <cmd>lua vim.lsp.buf.hover()<cr>
 nmap <localleader>d <cmd>lua vim.lsp.buf.definition()<cr>
+nmap <localleader>f <cmd>lua vim.lsp.buf.formatting()<cr>
+nmap <localleader>ai <cmd>lua vim.lsp.buf.incoming_calls()<cr>
+nmap <localleader>ao <cmd>lua vim.lsp.buf.outgoing_calls()<cr>
+nmap <localleader>ar <cmd>lua vim.lsp.buf.rename()<cr>
+nmap <localleader>r <cmd>lua vim.lsp.buf.references()<cr>
 
 " Telescope
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
@@ -154,6 +174,8 @@ nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 " let NERDTreeQuitOnOpen=1
 nnoremap <leader>e :NvimTreeToggle<cr>
 nnoremap <leader>t :NvimTreeFindFile<cr>
+
+nnoremap <leader>b :JABSOpen<cr>
 
 set termguicolors
 
