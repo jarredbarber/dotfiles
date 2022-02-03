@@ -35,6 +35,15 @@ set timeoutlen=50
 
 set mouse=a
 
+lua <<END
+vim.g.symbols_outline = {
+    auto_close = true,
+    show_numbers = true,
+    show_relative_numbers = true,
+    show_symbol_details = true,
+    symbol_blacklist = { "Field", "Variable" }
+}
+END
 call plug#begin('~/.vim/plugged')
 " Colorschemes
 Plug 'cocopon/iceberg.vim'
@@ -51,6 +60,7 @@ Plug 'tpope/vim-commentary'
 
 " Stuff I'm checking out
 Plug 'easymotion/vim-easymotion'
+" Plug 'ggandor/lightspeed.nvim'
 
 Plug 'hoob3rt/lualine.nvim'
 " If you want to have icons in your statusline choose one of these
@@ -74,6 +84,7 @@ Plug 'williamboman/nvim-lsp-installer'
 Plug 'nvim-lua/completion-nvim'
 Plug 'matbme/JABS.nvim'
 " Plug 'ms-jpq/coq_nvim' " in python :(
+Plug 'simrat39/symbols-outline.nvim'
 
 Plug 'JuliaEditorSupport/julia-vim'
 
@@ -82,12 +93,15 @@ Plug 'JuliaEditorSupport/julia-vim'
 call plug#end()
 
 " Run lua plugins
+let g:nvim_tree_quit_on_open = 1 
+let g:nvim_tree_highlight_opened_files = 1
+
 lua << END
 require('lualine').setup{options={theme='horizon'}}
-require'nvim-tree'.setup() 
+require('nvim-tree').setup() 
 require('telescope').setup()
-require("which-key").setup()
-require("jabs").setup{position='center', width=100}
+require('which-key').setup()
+require('jabs').setup{position='center', width=100}
 
 local map = function(key, value)
 	vim.api.nvim_buf_set_keymap(0,'n',key,value,{noremap = true, silent = true});
@@ -118,6 +132,7 @@ end
 
 require'lspconfig'.pyright.setup{on_attach=custom_attach}
 require'lspconfig'.rust_analyzer.setup{}
+
 END
 
 let mapleader=" "
@@ -140,9 +155,12 @@ set shortmess+=c
 nnoremap <leader>ce :e ~/.vimrc<cr>
 nnoremap <leader>cs :source ~/.vimrc<cr>
 " nnoremap <leader>src :source ~/.vimrc<cr>
-" Define some leader commands for switching buffers
+" Define some leader commands for switching buffer
 nnoremap <leader>n :bn<cr>
 nnoremap <leader>p :bp<cr>
+nnoremap <leader>s :SymbolsOutline<cr>
+nmap <leader>d <Plug>(easymotion-bd-w)
+nmap s <Plug>(easymotion-s)
 
 command! W :w " I always hit shift on the 'w' in ':w'
 command! Latex :call LaTeXtoUnicode#Toggle()<cr>
@@ -150,12 +168,6 @@ command! Latex :call LaTeXtoUnicode#Toggle()<cr>
 " Run the q macro
 nnoremap Q @q 
 
-" nmap <localleader>h :call CocAction('doHover')<cr>
-" nmap <localleader>d <Plug>(coc-definition)
-" nmap <localleader>r <Plug>(coc-rename)
-" nmap <localleader>f <Plug>(coc-format-selected)
-" nmap <localleader>R <Plug>(coc-references-used)
-" nmap <localleader>ref <Plug>(coc-refactor)
 nmap <localleader>h <cmd>lua vim.lsp.buf.hover()<cr>
 nmap <localleader>d <cmd>lua vim.lsp.buf.definition()<cr>
 nmap <localleader>f <cmd>lua vim.lsp.buf.formatting()<cr>
@@ -170,8 +182,6 @@ nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
-" NERD Tree
-" let NERDTreeQuitOnOpen=1
 nnoremap <leader>e :NvimTreeToggle<cr>
 nnoremap <leader>t :NvimTreeFindFile<cr>
 
