@@ -132,7 +132,7 @@ end
 
 require'lspconfig'.pyright.setup{on_attach=custom_attach}
 require'lspconfig'.rust_analyzer.setup{}
-
+require'lspconfig'.sourcekit.setup{}
 END
 
 let mapleader=" "
