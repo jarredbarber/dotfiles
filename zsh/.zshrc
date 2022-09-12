@@ -98,8 +98,6 @@ zstyle ':completion:*' hosts off
 export PROMPT='%(!.%{%F{yellow}%}.)$USER@%{$fg[white]%}%M %{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
 
 alias zshrc='source ~/.zshrc'
-for f in $HOME/.zsh_local/*; do 
-    source $f
-done
-
+# local mods
+[ -f ~/.zsh_local ] && source ~/.zsh_local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
