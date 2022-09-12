@@ -333,10 +333,10 @@ nnoremap <leader>zg :lua require('telekasten').search_notes()<CR>
 nnoremap <leader>zz :lua require('telekasten').follow_link()<CR>
 
 " on hesitation, bring up the panel
-nnoremap <leader>z :lua require('telekasten').panel()<CR>
+nnoremap <leader>zp :lua require('telekasten').panel()<CR>
 
 " Zen mode
-nnoremap <leader>cd :ZenMode<CR>
+nnoremap <leader>cz :ZenMode<CR>
 
 function! s:JumpToNextHeading(direction, count)
     let col = col(".")
