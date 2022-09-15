@@ -60,16 +60,12 @@ Plug 'tpope/vim-commentary'
 
 " Stuff I'm checking out
 Plug 'easymotion/vim-easymotion'
-" Plug 'ggandor/lightspeed.nvim'
-" Plug 'oberblastmeister/neuron.nvim', { 'branch': 'unstable' }
-" Plug 'pyrho/nerveux.nvim'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'nvim-lua/popup.nvim'
 Plug 'renerocksai/telekasten.nvim'
 
 Plug 'hoob3rt/lualine.nvim'
 " If you want to have icons in your statusline choose one of these
-" Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
@@ -80,8 +76,6 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'folke/which-key.nvim'
 
-Plug 'ryanoasis/vim-devicons'
-
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'nvim-lua/completion-nvim'
@@ -91,15 +85,12 @@ Plug 'simrat39/symbols-outline.nvim'
 Plug 'JuliaEditorSupport/julia-vim'
 
 Plug 'preservim/vim-lexical'
-" Plug 'junegunn/goyo.vim'
 Plug 'folke/zen-mode.nvim'
 Plug 'junegunn/limelight.vim'
 
 call plug#end()
 
 " Run lua plugins
-" let g:nvim_tree_quit_on_open = 1 
-let g:nvim_tree_highlight_opened_files = 1
 
 lua << END
 require('lualine').setup{options={theme='horizon'}}
@@ -337,29 +328,7 @@ nnoremap <leader>zp :lua require('telekasten').panel()<CR>
 
 " Zen mode
 nnoremap <leader>cz :ZenMode<CR>
-
-function! s:JumpToNextHeading(direction, count)
-    let col = col(".")
-
-    silent execute a:direction == "up" ? '?^#' : '/^#'
-
-    if a:count > 1
-        silent execute "normal! " . repeat("n", a:direction == "up" && col != 1 ? a:count : a:count - 1)
-    endif
-
-    silent execute "normal! " . col . "|"
-
-    unlet col
-endfunction
-
-nnoremap <buffer> <silent> ]] :<C-u>call <SID>JumpToNextHeading("down", v:count1)<CR>
-nnoremap <buffer> <silent> [[ :<C-u>call <SID>JumpToNextHeading("up", v:count1)<CR>
-
-function! JournalHeader()
-	return "# " . strftime('%a') . " " . strftime('%m/%d') . " @"
-endfunction
-
-nnoremap <leader>aj gg"=JournalHeader()<C-M> 
+nnoremap <leader>cl :Limelight<CR>
 
 set termguicolors
 
