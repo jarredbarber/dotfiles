@@ -363,4 +363,5 @@ nnoremap <leader>aj gg"=JournalHeader()<C-M>
 
 set termguicolors
 
+source ~/.vim/local.vim
 
