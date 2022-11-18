@@ -46,11 +46,11 @@ vim.g.symbols_outline = {
 END
 call plug#begin('~/.vim/plugged')
 " Colorschemes
-Plug 'cocopon/iceberg.vim'
+" Plug 'cocopon/iceberg.vim'
 Plug 'mrjones2014/lighthaus.nvim'
-Plug 'morhetz/gruvbox'
-Plug 'doums/darcula'
-Plug 'tlhr/anderson.vim'
+" Plug 'morhetz/gruvbox'
+" Plug 'doums/darcula'
+" Plug 'tlhr/anderson.vim'
 
 " Tim Pope, plugin wizard
 Plug 'tpope/vim-sensible'
@@ -60,10 +60,10 @@ Plug 'tpope/vim-commentary'
 
 " Stuff I'm checking out
 Plug 'easymotion/vim-easymotion'
-Plug 'mzlogin/vim-markdown-toc'
 Plug 'nvim-lua/popup.nvim'
 Plug 'renerocksai/telekasten.nvim'
 
+Plug 'renerocksai/calendar-vim'
 Plug 'hoob3rt/lualine.nvim'
 " If you want to have icons in your statusline choose one of these
 Plug 'ryanoasis/vim-devicons'
@@ -156,7 +156,7 @@ require('telekasten').setup {
     sort = "filename",
 
     -- integrate with calendar-vim
-    plug_into_calendar = false,
+    plug_into_calendar = true,
     calendar_opts = {
         -- calendar week display mode: 1 .. 'WK01', 2 .. 'WK 1', 3 .. 'KW01', 4 .. 'KW 1', 5 .. '1'
         weeknm = 4,
@@ -320,6 +320,7 @@ nnoremap <leader>b :JABSOpen<cr>
 " Telekasten
 nnoremap <leader>zf :lua require('telekasten').find_notes()<CR>
 nnoremap <leader>zd :lua require('telekasten').find_daily_notes()<CR>
+nnoremap <leader>zw :lua require('telekasten').find_weekly_notes()<CR>
 nnoremap <leader>zg :lua require('telekasten').search_notes()<CR>
 nnoremap <leader>zz :lua require('telekasten').follow_link()<CR>
 
@@ -331,6 +332,36 @@ nnoremap <leader>cz :ZenMode<CR>
 nnoremap <leader>cl :Limelight<CR>
 
 set termguicolors
+
+function! s:JumpToNextHeading(direction, count)
+    let col = col(".")
+
+    silent execute a:direction == "up" ? '?^#' : '/^#'
+
+    if a:count > 1
+        silent execute "normal! " . repeat("n", a:direction == "up" && col != 1 ? a:count : a:count - 1)
+    endif
+
+    silent execute "normal! " . col . "|"
+
+    unlet col
+endfunction
+
+" Markdown customization
+autocmd FileType markdown nnoremap <buffer> <silent> ]] :<C-u>call <SID>JumpToNextHeading("down", v:count1)<CR>
+autocmd FileType markdown nnoremap <buffer> <silent> [[ :<C-u>call <SID>JumpToNextHeading("up", v:count1)<CR>
+autocmd FileType markdown nnoremap <buffer> <silent> <localleader>t :Telekasten toggle_todo<CR>
+
+lua<<END
+  require("zen-mode").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+    window = {
+        width = 100
+    }
+  }
+END
 
 source ~/.vim/local.vim
 
