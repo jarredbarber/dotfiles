@@ -88,8 +88,6 @@ Plug 'preservim/vim-lexical'
 Plug 'folke/zen-mode.nvim'
 Plug 'junegunn/limelight.vim'
 
-Plug 'rest-nvim/rest.nvim'
-Plug 'jarredbarber/claude.nvim'
 call plug#end()
 
 " Run lua plugins
