@@ -28,7 +28,7 @@ opt.updatetime = 250
 opt.signcolumn = "yes"
 
 -- System clipboard
-opt.clipboard = "unnamedplus"
+-- opt.clipboard = "unnamedplus"
 
 -- Decrease update time
 opt.updatetime = 250
