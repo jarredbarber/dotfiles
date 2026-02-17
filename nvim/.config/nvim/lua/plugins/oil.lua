@@ -19,6 +19,7 @@ return {
         -- Show files and directories that start with dot
         show_hidden = true,
       },
+      constrain_cursor = "editable",
     },
   },
 }

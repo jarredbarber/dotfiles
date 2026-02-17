@@ -1,12 +1,12 @@
 return {
   -- Markdown rendering
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-    opts = {},
-    ft = { "markdown" },
-  },
-
+  -- {
+  --   "MeanderingProgrammer/render-markdown.nvim",
+  --   dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+  --   opts = {},
+  --   ft = { "markdown" },
+  -- },
+  --
   -- Zen Mode
   {
     "folke/zen-mode.nvim",
@@ -37,8 +37,8 @@ return {
   },
 
   -- Bullets.vim for better list handling
-  {
-    "dkarter/bullets.vim",
-    ft = { "markdown", "text" },
-  }
+  -- {
+  --   "dkarter/bullets.vim",
+  --   ft = { "markdown", "text" },
+  -- }
 }

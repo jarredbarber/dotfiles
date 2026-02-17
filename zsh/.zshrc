@@ -128,3 +128,4 @@ export PATH="/Users/jarred/.antigravity/antigravity/bin:$PATH"
 
 # opencode
 export PATH=/Users/jarred/.opencode/bin:$PATH
+export PATH=/Users/jarred/.local/bin:$PATH
