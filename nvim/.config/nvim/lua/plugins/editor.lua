@@ -40,17 +40,17 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    main = "nvim-treesitter.configs", -- This helps lazy find the right module
-    opts = {
-      ensure_installed = { "lua", "markdown", "markdown_inline", "vim", "vimdoc", "query" },
-      highlight = {
-        enable = true,
-        -- Disable in VSCode for better performance
-        disable = function()
-          return vim.g.vscode ~= nil
-        end,
-      },
-    },
+    config = function()
+      require("nvim-treesitter").setup()
+      -- Auto-enable treesitter highlighting for all buffers (unless in VSCode)
+      if not vim.g.vscode then
+        vim.api.nvim_create_autocmd("FileType", {
+          callback = function()
+            pcall(vim.treesitter.start)
+          end,
+        })
+      end
+    end,
   },
 
   -- Surround
