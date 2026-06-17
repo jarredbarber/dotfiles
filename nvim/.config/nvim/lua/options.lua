@@ -4,6 +4,7 @@ vim.g.maplocalleader = ","
 
 local opt = vim.opt
 
+opt.conceallevel = 0 -- Mostly for markdown
 opt.number = true
 opt.relativenumber = true
 opt.mouse = "a"

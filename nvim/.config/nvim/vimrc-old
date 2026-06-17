@@ -23,8 +23,8 @@ set noswapfile
 
 set expandtab
 set smarttab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 
 set ai
 set si
@@ -34,10 +34,6 @@ set wrap
 set timeoutlen=50
 
 set mouse=a
-
-autocmd FileType python setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
-set autoindent
-
 
 lua <<END
 vim.g.symbols_outline = {
@@ -51,7 +47,6 @@ END
 call plug#begin('~/.vim/plugged')
 " Colorschemes
 " Plug 'cocopon/iceberg.vim'
-Plug 'oxfist/night-owl.nvim'
 Plug 'mrjones2014/lighthaus.nvim'
 " Plug 'morhetz/gruvbox'
 " Plug 'doums/darcula'
@@ -104,9 +99,9 @@ require('zen-mode').setup()
 require('telescope').setup()
 require('which-key').setup()
 require('jabs').setup{position='center', width=100}
-local tkhome = vim.fn.expand("~/writing")
+local home = vim.fn.expand("~/write")
 require('telekasten').setup {
-    home = tkhome,
+    home = home,
     -- if true, telekasten will be enabled when opening a note within the configured home
     take_over_my_home = true,
 
@@ -116,9 +111,9 @@ require('telekasten').setup {
     command_palette_theme = 'dropdown',
 
     -- dir names for special notes (absolute path or subdir name)
-    dailies      = tkhome .. '/' .. 'daily',
-    weeklies     = tkhome .. '/' .. 'weekly',
-    templates    = tkhome .. '/' .. 'templates',
+    dailies      = home .. '/' .. 'daily',
+    weeklies     = home .. '/' .. 'weekly',
+    templates    = home .. '/' .. 'templates',
 
     -- image (sub)dir for pasting
     -- dir name (absolute path or subdir name)
@@ -142,15 +137,15 @@ require('telekasten').setup {
 
     -- template for new notes (new_note, follow_link)
     -- set to `nil` or do not specify if you do not want a template
-    template_new_note = tkhome .. '/' .. 'templates/new_note.md',
+    template_new_note = home .. '/' .. 'templates/new_note.md',
 
     -- template for newly created daily notes (goto_today)
     -- set to `nil` or do not specify if you do not want a template
-    template_new_daily = tkhome .. '/' .. 'templates/daily.md',
+    template_new_daily = home .. '/' .. 'templates/daily.md',
 
     -- template for newly created weekly notes (goto_thisweek)
     -- set to `nil` or do not specify if you do not want a template
-    template_new_weekly = tkhome .. '/' .. 'templates/weekly.md',
+    template_new_weekly= home .. '/' .. 'templates/weekly.md',
 
     -- image link style
     -- wiki:     ![[image name]]
@@ -238,6 +233,24 @@ end
 local custom_attach = function(client)
 	print("LSP started.");
 	require'completion'.on_attach(client)
+	-- require'diagnostic'.on_attach(client)
+
+	-- map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
+	--map('<localleader>d','<cmd>lua vim.lsp.buf.definition()<CR>')
+	--map('<localleader>h','<cmd>lua vim.lsp.buf.hover()<CR>')
+	--map('n','gr','<cmd>lua vim.lsp.buf.references()<CR>')
+	-- map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
+	-- map('n','gi','<cmd>lua vim.lsp.buf.implementation()<CR>')
+	-- map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
+	-- map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+	-- map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+	-- map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
+	-- map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
+	-- map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+	-- map('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
+	-- map('<localleader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+	-- map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
+	-- map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
 end
 
 require'lspconfig'.pyright.setup{on_attach=custom_attach}
@@ -351,4 +364,3 @@ lua<<END
 END
 
 source ~/.vim/local.vim
-

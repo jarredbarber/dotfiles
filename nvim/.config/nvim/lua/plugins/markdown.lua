@@ -31,7 +31,7 @@ return {
       { "<leader>zn", "<cmd>Telekasten new_note<cr>", desc = "New Note" },
     },
     opts = {
-      home = vim.fn.expand("~/writing"), -- Default location
+      home = vim.fn.expand("~/writing/journal"), -- Default location
       -- The user can customize this later
     },
   },
